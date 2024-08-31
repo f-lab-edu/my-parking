@@ -41,8 +41,8 @@ jobs:
         env:
           PROPERTIES_PATH: "./key.properties"
         run: |
-          echo keyPassword=\${{ secrets.NAVER_API_KEY }} > ${{env.NAVER_API_KEY}}
-          echo storePassword=\${{ secrets.PARKING_API_KEY }} >> ${{env.PARKING_API_KEY}}
+          echo "keyPassword=${{ secrets.NAVER_API_KEY }}" > ${{ env.PROPERTIES_PATH }}
+          echo "storePassword=${{ secrets.PARKING_API_KEY }}" >> ${{ env.PROPERTIES_PATH }}
 
       # 의존성 설치
       - name: Install dependencies
