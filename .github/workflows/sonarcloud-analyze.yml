@@ -42,3 +42,31 @@ jobs:
         with:
           channel: stable
           flutter-version-file: pubspec.yaml
+
+      # key.properties 파일 생성 (api key 정보 보관)
+      - name: Creating key.properties file
+        env:
+          PROPERTIES_PATH: "./key.properties"
+
+      # 의존성 설치
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 코드 제너레이션 (ex. freezed)
+      - name: Code Generation
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      # 코드 분석
+      - name: Analyze code
+        run: flutter analyze
+
+      # 테스트 진행
+      - name: Run tests
+        run: flutter test --coverage
+
+      # 코드 커버리지 수치 기록
+      - name: Upload code coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage/lcov.info
