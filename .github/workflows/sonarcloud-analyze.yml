@@ -44,6 +44,12 @@ jobs:
           echo "keyPassword=${{ secrets.NAVER_API_KEY }}" > ${{ env.PROPERTIES_PATH }}
           echo "storePassword=${{ secrets.PARKING_API_KEY }}" >> ${{ env.PROPERTIES_PATH }}
 
+      # 플러터 설치
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
       # 의존성 설치
       - name: Install dependencies
         run: flutter pub get
