@@ -36,13 +36,6 @@ jobs:
             -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
             -Dsonar.organization=f-lab-edu-1
 
-      # pubspce.yaml에 설정한 플러터 버전으로 설치
-      - name: Set up Flutter Version
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          flutter-version-file: pubspec.yaml
-
       # key.properties 파일 생성 (api key 정보 보관)
       - name: Creating key.properties file
         env:
