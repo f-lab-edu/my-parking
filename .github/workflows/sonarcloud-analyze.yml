@@ -47,6 +47,9 @@ jobs:
       - name: Creating key.properties file
         env:
           PROPERTIES_PATH: "./key.properties"
+        run: |
+          echo keyPassword=\${{ secrets.NAVER_API_KEY }} > ${{env.NAVER_API_KEY}}
+          echo storePassword=\${{ secrets.PARKING_API_KEY }} >> ${{env.PARKING_API_KEY}}
 
       # 의존성 설치
       - name: Install dependencies
