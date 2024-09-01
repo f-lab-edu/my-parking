@@ -36,4 +36,39 @@ jobs:
             -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
             -Dsonar.organization=f-lab-edu-1
 
-          
+      # key.properties 파일 생성 (api key 정보 보관)
+      - name: Creating key.properties file
+        env:
+          PROPERTIES_PATH: "./key.properties"
+        run: |
+          echo "keyPassword=${{ secrets.NAVER_API_KEY }}" > ${{ env.PROPERTIES_PATH }}
+          echo "storePassword=${{ secrets.PARKING_API_KEY }}" >> ${{ env.PROPERTIES_PATH }}
+
+      # 플러터 설치
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      # 의존성 설치
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 코드 제너레이션 (ex. freezed)
+      - name: Code Generation
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      # 코드 분석
+      - name: Analyze code
+        run: flutter analyze
+
+      # 테스트 진행
+      - name: Run tests
+        run: flutter test --coverage
+
+      # 코드 커버리지 수치 기록
+      - name: Upload code coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage/lcov.info

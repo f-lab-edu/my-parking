@@ -1,5 +1,5 @@
 name: my_parking
-description: "A new Flutter project."
+description: "간편한 주차장 이용을 위한 스마트 주차앱"
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -12,13 +12,23 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.6
+  flutter_localizations:
+    sdk: flutter
+  dio: ^5.0.0
+  go_router: ^13.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^3.0.0
+  flutter_lints: ^3.0.1
+  build_runner:
+  freezed:
+  json_serializable:
 
 flutter:
 
   uses-material-design: true
+
+flutter_intl:
+  enabled: true
