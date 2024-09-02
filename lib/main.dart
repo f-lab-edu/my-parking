@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+import 'features/user/data/models/user_model.dart';
+
+void main() async {
+  // 앱 초기 실행 시 Hive Adapter 등록
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserModelAdapter());
+
   runApp(const MyApp());
 }
 
