@@ -1,15 +1,39 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
 
-part 'user_model.freezed.dart';
+import '../../domain/entities/user.dart';
+
 part 'user_model.g.dart';
 
-@freezed
-class UserModel with _$UserModel {
-  factory UserModel({
-    required String id,
-    required String name,
-    String? googleToken,  // 구글 서버에서 전달받은 토큰
-  }) = _UserModel;
+@HiveType(typeId: 0)
+class UserModel {
+  @HiveField(0)
+  final String id;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
+  @HiveField(1)
+  final String name;
+
+  @HiveField(2)
+  final String? googleToken;
+
+  UserModel({
+    required this.id,
+    required this.name,
+    this.googleToken,
+  });
+
+  User toEntity() {
+    return User(
+      id: id,
+      name: name,
+      googleToken: googleToken,
+    );
+  }
+
+  factory UserModel.fromEntity(User user) {
+    return UserModel(
+      id: user.id,
+      name: user.name,
+      googleToken: user.googleToken,
+    );
+  }
 }
