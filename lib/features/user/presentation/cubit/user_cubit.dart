@@ -1,6 +1,4 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_parking/core/exceptions/app_exception.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/usecases/delete_user.dart';
 import '../../domain/usecases/get_user.dart';
@@ -25,7 +23,7 @@ class UserCubit extends Cubit<UserState> {
     emit(UserLoading());
     final result = await getUser();
     result.fold(
-      (failure) => UserError("Failed to load user"),
+      (failure) => const UserError("Failed to load user"),
       (user) => UserLoaded(user),
     );
   }
@@ -35,7 +33,7 @@ class UserCubit extends Cubit<UserState> {
     emit(UserLoading());
     final result = await saveUser(user);
     result.fold(
-      (failure) => emit(UserError("Failed to save user")),
+      (failure) => emit(const UserError("Failed to save user")),
       (_) => emit(UserLoaded(user)),
     );
   }
@@ -45,7 +43,7 @@ class UserCubit extends Cubit<UserState> {
     emit(UserLoading());
     final result = await deleteUser();
     result.fold(
-      (failure) => emit(UserError("Failed to sign out")),
+      (failure) => emit(const UserError("Failed to sign out")),
       (_) => emit(UserInitial()),
     );
   }
